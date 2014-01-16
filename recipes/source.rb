@@ -37,7 +37,10 @@ bash "install_vim" do
   code <<-EOH
     mkdir vim-#{source_version}
     tar -jxf vim-#{source_version}.tar.bz2 -C vim-#{source_version} --strip-components 1
-    (cd vim-#{source_version}/ && ./configure #{node['vim']['source']['configuration']} && make && make install)
+    cd vim-#{source_version}/
+    ./configure #{node['vim']['source']['configuration']}
+    make
+    make install
   EOH
-  action :nothing
+  action :run
 end
